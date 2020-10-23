@@ -1,24 +1,25 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const restaurantModel = sequelize.define('restaurant', {
-        id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
-        email_id: { type: Sequelize.STRING, unique: true, validate: { isEmail: true } },
-        password: {type: Sequelize.STRING, allowNull: false},
-        restaurant_name: { type: Sequelize.STRING },
-        restaurant_location: { type: Sequelize.STRING },
-        restaurant_city:{ type: Sequelize.STRING},
-        restaurant_state: { type: Sequelize.STRING },
-        restaurant_country: { type: Sequelize.STRING },
-        restaurant_zip:{type: Sequelize.INTEGER},
-        restaurant_description: { type: Sequelize.STRING },
-        contact_info: { type: Sequelize.STRING },
-        timing: { type: Sequelize.STRING },
-        cousine:{type: Sequelize.STRING },
-        delivery_method:{type: Sequelize.STRING },
+const restaurantSchema = new Schema({
+        id:{type: Number,primaryKey: true,unique: true,allowNull: false},
+        email_id: { type: String, unique: true },
+        password: {type: String, allowNull: false},
+        restaurant_name: { type: String },
+        restaurant_location: { type: String },
+        restaurant_city:{ type: String},
+        restaurant_state: { type: String },
+        restaurant_country: { type: String },
+        restaurant_zip:{type: Number},
+        restaurant_description: { type: String },
+        contact_info: { type: String },
+        timing: { type: String },
+        cousine:{type: String },
+        delivery_method:{type: String },
     }, {
-        tableName: 'restaurant',
+       
         timestamps: false
     });
 
-module.exports = restaurantModel;
+
+module.exports = Restaurant = mongoose.model('restaurant', restaurantSchema);

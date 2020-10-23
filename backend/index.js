@@ -2,9 +2,30 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
 
 require('dotenv').config();
+//=======================================================
+const { mongoDB } = require('./src/db/config');
+const mongoose = require('mongoose');
+var options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    poolSize: 500,
+    bufferMaxEntries: 0
+};
 
+mongoose.connect(mongoDB, options, (err, res) => {
+    if (err) {
+        console.log(err);
+        console.log(`MongoDB Connection Failed`);
+    } else {
+        console.log(`MongoDB Connected`);
+    }
+});
+//====================================================
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 //app.use(cors({ origin: 'http://54.151.2.194:3000', credentials: true }));
 app.use(express.static('uploads'));
@@ -23,7 +44,6 @@ const reviewHandler= require('./src/routes/review/review');
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use('/', loginHandler);
 app.use('/restaurant',restaurantHandler);
 app.use('/restaurantprofile',restaurantProfile);

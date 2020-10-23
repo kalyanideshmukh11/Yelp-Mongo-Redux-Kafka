@@ -6,10 +6,7 @@ const Review= require('../../models/review');
 
 router.get('/review', auth, async (req, res) => {
     try {
-         reviewList = await Review.findAll({
-            where: {
-                rest_id: req.user.id,
-            },
+         reviewList = await Review.findAll({rest_id: req.user.id,
         });
         if (reviewList) {
             return res.status(200).json(reviewList);

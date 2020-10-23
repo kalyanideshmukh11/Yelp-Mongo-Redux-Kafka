@@ -1,35 +1,36 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const reviewModel = sequelize.define('review', {
-    review_id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
-    comment: {type: Sequelize.STRING,},
-    rating: { type: Sequelize.INTEGER,},
-    date: {type: Sequelize.DATE,},
+const reviewSchema = new Schema({
+    review_id:{type: Number,primaryKey: true,unique: true,allowNull: false},
+    comment: {type: String,},
+    rating: { type: Number,},
+    Date: {type: Date,},
     rest_id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         references: {
-            model: 'restaurant',
-            key: 'id',
+            model: 'Restaurant',
+            key: '_id',
         },
     },
     customer_id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         references: {
-            model: 'customer',
-            key: 'id',
+            model: 'Customer',
+            key: '_id',
         },
     },
     customer_name: {
-        type: Sequelize.STRING,
+        type: String,
         references: {
-            model: 'customer',
+            model: 'Customer',
             key: 'first_name',
         },
     },
 }, {
-    tableName: 'review',
+    
     timestamps: false
 });
 
-module.exports = reviewModel    ;
+
+module.exports = Review = mongoose.model('review', reviewSchema);

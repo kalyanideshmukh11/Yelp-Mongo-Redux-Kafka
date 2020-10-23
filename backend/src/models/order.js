@@ -1,43 +1,43 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const orderModel = sequelize.define('order', {
-    order_id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
-    order_status: {type: Sequelize.STRING, },
-    delivery_status: {type: Sequelize.STRING,},
-    date: {type: Sequelize.STRING, },
-    dish_name: {type: Sequelize.STRING,},
+const orderSchema = new Schema({
+    order_id:{type: Number,primaryKey: true,unique: true,allowNull: false},
+    order_status: {type: String, },
+    delivery_status: {type: String,},
+    date: {type: String, },
+    dish_name: {type: String,},
     rest_id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         references: {
-            model: 'restaurant',
-            key: 'id',
+            model: 'Restaurant',
+            key: '_id',
         },
     },
     rest_name:{
-        type: Sequelize.STRING,
+        type: String,
         references: {
-            model: 'restaurant',
+            model: 'Restaurant',
             key: 'restaurant_name',
         },
     },
     customer_id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         references: {
-            model: 'customer',
-            key: 'id',
+            model: 'Customer',
+            key: '_id',
         },
     },
     customer_name:{
-        type: Sequelize.STRING,
+        type: String,
         references: {
-            model: 'customer',
+            model: 'Customer',
             key: 'first_name',
         },
     }
 }, {
-    tableName: 'order',
     timestamps: false
 });
 
-module.exports = orderModel;
+
+module.exports = Order = mongoose.model('order', orderSchema);

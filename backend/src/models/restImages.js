@@ -1,19 +1,20 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const restImagesModel = sequelize.define('restImages', {
-    id: { type: Sequelize.INTEGER, primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
+const restImagesSchema = new Schema ({
+    id: { type: Number, primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
     rest_id: {
-            type: Sequelize.INTEGER,
+            type: Number,
             references: {
-                model: 'restaurant',
-                key: 'id',
+                model: 'Restaurant',
+                key: '_id',
             },
         },
-    image: {type: Sequelize.STRING},
+    image: {type: String},
     },{
-        tableName: 'restImages',
+        
         timestamps: false
     });
 
-module.exports = restImagesModel;
+
+module.exports = RestImages = mongoose.model('restimages', restImagesSchema);

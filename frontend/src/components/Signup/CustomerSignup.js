@@ -24,28 +24,24 @@ class CustomerSignup extends Component {
             }
         })
         .catch(err=>{
-            this.props.setSignupError(err.res.data);
+            this.props.setSignupError(err.response.data.msg);
         })
     }
 
     emailHandler = (event) => {
         this.props.addSignupEmail(event.target.value);
-        this.props.setSignupError(null);
     }
 
     passwordHandler = (event) => {
         this.props.addSignupPassword(event.target.value);
-        this.props.setSignupError(null);
     }
 
     firstNameHandler = (event) => {
         this.props.addFirstName(event.target.value);
-        this.props.setSignupError(null);
     }
 
     lastNameHandler = (event) => {
         this.props.addLastName(event.target.value);
-        this.props.setSignupError(null);
     }
 
     render() {

@@ -26,10 +26,7 @@ const Menu= require('../../models/menu');
 
 router.get('/details', auth, async (req, res) => {
     try {
-        const restaurantDetails = await Restaurant.findAll({
-            where: {
-                id: req.user.id,
-            },
+        const restaurantDetails = await Restaurant.findAll({id: req.user.id,
         });
         if (restaurantDetails) {
             return res.status(200).json(restaurantDetails);
@@ -44,9 +41,7 @@ router.post('/details', auth, async (req, res) => {
         const data = req.body;
 
         const restaurantDetails = await Restaurant.findOne({
-            where: {
-                id: req.user.id,
-            },
+                id: req.user.id
         });
         console.log("found")
         if (restaurantDetails) {
@@ -65,10 +60,7 @@ router.post('/details', auth, async (req, res) => {
                 delivery_method: data.delivery_method,
             });
             console.log("updated")
-            const restaurant = await Restaurant.findOne({
-                where: {
-                    id: updatedRestaurant.id,
-                },
+            const restaurant = await Restaurant.findOne({id: updatedRestaurant.id,
             });
             console.log("found back")
             res.status(200).json(restaurant);
@@ -82,9 +74,7 @@ router.post('/details', auth, async (req, res) => {
 router.get('/menudetails', auth, async (req, res) => {
     try {
          menuDetails = await Menu.findAll({
-            where: {
                 rest_id: req.user.id,
-            },
         });
         if (menuDetails) {
             return res.status(200).json(menuDetails);

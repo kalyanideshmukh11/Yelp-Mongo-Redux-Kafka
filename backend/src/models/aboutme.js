@@ -1,21 +1,20 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
-
-const aboutmeModel = sequelize.define('aboutme', {
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const aboutmeSchema = new Schema({
     id: {
-        type: Sequelize.INTEGER, primaryKey: true,unique: true,allowNull: false,
+        type: Number, primaryKey: true,unique: true,allowNull: false,
         references: {
-            model: 'customer',
-            key: 'id',
-        }},
-    yelping_since:{type: Sequelize.STRING},
-    things_love: {type: Sequelize.STRING},
-    findme_in:{type: Sequelize.STRING},
-    links: {type: Sequelize.STRING},
-    headline: {type: Sequelize.STRING},
+            model: 'Customer',
+            key: '_id',}
+        },
+    yelping_since:{type: String},
+    things_love: {type: String},
+    findme_in:{type: String},
+    links: {type: String},
+    headline: {type: String},
     },{
-        tableName: 'aboutme',
-        timestamps: false
+        versionKey: false
     });
 
-module.exports = aboutmeModel;
+
+module.exports = AboutMe = mongoose.model('aboutme', aboutmeSchema);

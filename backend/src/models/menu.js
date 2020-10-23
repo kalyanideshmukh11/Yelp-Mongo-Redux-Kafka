@@ -1,17 +1,17 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const menuModel = sequelize.define('menu', {
-    menu_id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
-    name: {type: Sequelize.STRING,},
-    description: { type: Sequelize.STRING, },
-    ingredients: { type: Sequelize.STRING,},
-    category: { type: Sequelize.STRING},
-    price:{type: Sequelize.INTEGER},
-    rest_id: { type: Sequelize.INTEGER, references: {   model: 'restaurant',   key: 'id', }, }
+const menuSchema = new Schema({
+    menu_id:{type: Number,primaryKey: true,unique: true,allowNull: false, autoIncrement:true},
+    name: {type: String},
+    description: { type: String, },
+    ingredients: { type: String,},  
+    category: { type: String},
+    price:{type: Number},
+    rest_id:[{_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'restaurant' }}]
 }, {
-    tableName: 'menu',
     timestamps: false
 });
 
-module.exports = menuModel;
+
+module.exports = Menu = mongoose.model('menu', menuSchema);

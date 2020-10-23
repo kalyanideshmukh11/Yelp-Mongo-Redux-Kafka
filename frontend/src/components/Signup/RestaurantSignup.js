@@ -24,7 +24,7 @@ class RestaurantSignup extends Component {
             }
         })
         .catch(err=>{
-            this.props.setSignupError(err.res.data);
+            this.props.setSignupError(err.response.data.msg);
         })
     }
 

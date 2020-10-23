@@ -1,22 +1,24 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
-
-
-const customerModel = sequelize.define('customer', {
-    id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
-    email_id: {type: Sequelize.STRING,primaryKey: true,unique: true,allowNull: false,validate: { isEmail: true}},
-    first_name: {type: Sequelize.STRING, allowNull: false},
-    last_name: {type: Sequelize.STRING, allowNull: false},
-    password: {type: Sequelize.STRING, allowNull: false}, 
-    phone_number: {type: Sequelize.STRING, unique: true, allowNull: true},
-    city: {type: Sequelize.STRING},
-    state: {type: Sequelize.STRING},
-    country: {type: Sequelize.STRING},
-    dob: {type: Sequelize.DATE},
-    photo:{type: Sequelize.STRING},
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+var validateEmail = function(email) {
+    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return re.test(email)
+};
+const customerSchema = new Schema({
+    id:{type: Number,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
+    email_id: {type: String,primaryKey: true,unique: true,allowNull: false, validate: [validateEmail, 'Please fill a valid email address']},
+    first_name: {type: String, allowNull: false},
+    last_name: {type: String, allowNull: false},
+    password: {type: String, allowNull: false}, 
+    phone_number: {type: String, unique: true, allowNull: true},
+    city: {type: String},
+    state: {type: String},
+    country: {type: String},
+    dob:{ type : Date, default: Date.now },
+    photo:{type: String},
     }, {
-        tableName: 'customer',
-        timestamps: false
+       
+        versionKey: false
     });
 
-module.exports = customerModel;
+module.exports = Customer = mongoose.model('customer', customerSchema);

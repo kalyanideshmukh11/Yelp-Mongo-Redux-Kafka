@@ -19,11 +19,7 @@ const fs = require('fs');
 
 router.get('/profilepic', auth, async (req, res) => {
     try {
-        const profilepic = await Customer.findAll({
-            where: {
-                id: req.user.id,
-            },
-        });
+        const profilepic = await Customer.findAll( { id: req.user.id});
         console.log("got it")
         if (profilepic) {
             return res.status(200).json(profilepic);
@@ -36,11 +32,7 @@ router.get('/profilepic', auth, async (req, res) => {
 
 router.post('/profilepic', upload.single('profile_pic'), auth, async (req, res) => {
     try { console.log("1")
-        const photoData = await Customer.findOne({
-            where: {
-                id: req.user.id,
-            },
-        });
+        const photoData = await Customer.findOne({id: req.user.id});
         console.log("2")
         //const buf = await (await sharp(req.file.buffer).resize(420, 240).toBuffer())
         console.log("3")

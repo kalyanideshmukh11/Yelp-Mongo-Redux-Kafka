@@ -7,10 +7,7 @@ const EventAttendee= require('../../models/eventattendee');
 
 router.get('/eventdetails', auth, async (req, res) => {
     try {
-         eventDetails = await Event.findAll({
-            where: {
-                rest_id: req.user.id,
-            },
+         eventDetails = await Event.findAll({rest_id: req.user.id
         });
         if (eventDetails) {
             return res.status(200).json(eventDetails);
@@ -71,10 +68,7 @@ router.post('/register', auth, async (req, res) => {
 
 router.get('/register', auth, async (req, res) => {
     try {
-         eventDetails = await EventAttendee.findAll({
-            where: {
-                customer_id: req.user.id,
-            },
+         eventDetails = await EventAttendee.findAll({customer_id: req.user.id,
         });
         if (eventDetails) {
             return res.status(200).json(eventDetails);

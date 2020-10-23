@@ -8,11 +8,7 @@ const AboutMe = require('../../models/aboutme');
 
 router.get('/basicdetails', auth, async (req, res) => {
     try {
-        const basicDetails = await Customer.findAll({
-            where: {
-                id: req.user.id,
-            },
-        });
+        const basicDetails = await Customer.findAll({ id: req.user.id });
         if (basicDetails) {
             return res.status(200).json(basicDetails);
         }
@@ -32,11 +28,7 @@ router.post('/basicdetails', auth, async (req, res) => {
             }
           }
           clean(details)
-        const basicDetails = await Customer.findOne({
-            where: {
-                id: req.user.id,
-            },
-        });
+        const basicDetails = await Customer.findOne({id: req.user.id});
         console.log("found")
         if (basicDetails) {
             const updatedCustomer = await basicDetails.update({
@@ -51,11 +43,7 @@ router.post('/basicdetails', auth, async (req, res) => {
                 phone_number: details.phone_number,
             });
             console.log("updated")
-            const customer = await Customer.findOne({
-                where: {
-                    id: updatedCustomer.id,
-                },
-            });
+            const customer = await Customer.findOne({id: updatedCustomer.id });
             console.log("found back")
             res.status(200).json(customer);
             console.log("send back")
@@ -68,11 +56,7 @@ router.post('/basicdetails', auth, async (req, res) => {
 
 router.get('/aboutme', auth,  async (req, res) => {
     try {
-        const aboutme = await AboutMe.findAll({
-            where: {
-                id: req.user.id,
-            },
-        });
+        const aboutme = await AboutMe.findAll({id: req.user.id});
         if (aboutme) {
             return res.status(200).json(aboutme);
         }
@@ -85,11 +69,7 @@ router.post('/aboutme',auth,  async (req, res) => {
     try {
         //console.log(req.body)
         const aboutme = req.body;
-        const aboutMeInfo = await AboutMe.findOne({
-            where: {
-                id: req.user.id,
-            },
-        });
+        const aboutMeInfo = await AboutMe.findOne({id: req.user.id});
         console.log("found")
         if (aboutMeInfo) {
             var aboutmeEntry = await aboutMeInfo.update({

@@ -21,11 +21,7 @@ router.patch('/status',auth, async (req, res) => {
     try {
         const data = req.body;
 console.log(data)
-        const orderDetails = await Order.findOne({
-            where: {
-                order_id: data.order_id,
-            },
-        });
+        const orderDetails = await Order.findOne({order_id: data.order_id});
         console.log("order found",orderDetails)
         if (orderDetails) {
             const updatedOrder = await orderDetails.update({
@@ -33,11 +29,7 @@ console.log(data)
                // delivery_status: data.delivery_method,
             });
             console.log("updated",updatedOrder)
-            const order = await Order.findOne({
-                where: {
-                    order_id: updatedOrder.order_id,
-                },
-            });
+            const order = await Order.findOne({order_id: updatedOrder.order_id});
             console.log("found back")
             res.status(200).json(order);
             console.log("send back")
@@ -52,11 +44,7 @@ console.log(data)
 router.get('/show', auth, async (req, res) => {
     try {
         console.log("send rest list")
-         orderList = await Order.findAll({
-            where: {
-                customer_id: req.user.id,
-            },
-        });
+         orderList = await Order.findAll({customer_id: req.user.id});
         console.log(orderList)
         
         if (orderList) {
@@ -71,11 +59,7 @@ router.get('/show', auth, async (req, res) => {
 router.get('/info', auth, async (req, res) => {
     try {
         console.log("send rest list")
-         orderList = await Order.findAll({
-            where: {
-                rest_id: req.user.id,
-            },
-        });
+         orderList = await Order.findAll({rest_id: req.user.id});
         console.log(orderList)
         
         if (orderList) {

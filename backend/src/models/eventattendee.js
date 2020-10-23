@@ -1,46 +1,46 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../db/sequelize');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const eventatendeeModel = sequelize.define('eventattendee', {
-    attendee_id:{type: Sequelize.INTEGER,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
+const eventatendeeSchema = new Schema({
+    attendee_id:{type: Number,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
     event_id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         references: {
-            model: 'event',
+            model: 'Event',
             key: 'event_id',
         },
     },
     name: {
-        type: Sequelize.STRING,
+        type: String,
         references: {
-            model: 'event',
+            model: 'Event',
             key: 'name',
         },
     },
     date: {
-        type: Sequelize.DATE,
+        type: Date,
         references: {
-            model: 'event',
+            model: 'Event',
             key: 'date',
         },
     },
     rest_id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         references: {
-            model: 'restaurant',
-            key: 'id',
+            model: 'Restaurant',
+            key: '_id',
         },
     },
     customer_id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         references: {
-            model: 'customer',
-            key: 'id',
+            model: 'Customer',
+            key: '_id',
         },
     },
 }, {
-    tableName: 'eventattendee',
+    
     timestamps: false
 });
 
-module.exports = eventatendeeModel;
+module.exports = EventAtendee = mongoose.model('eventattendee', eventatendeeSchema);
