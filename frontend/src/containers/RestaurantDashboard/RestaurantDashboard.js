@@ -1,7 +1,3 @@
-//rest details
-//restaurant images
-//menu details
-//rest reviews
 
 import React, { Component, useReducer } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -33,7 +29,7 @@ class RestaurantDashboard extends Component {
     }
 getRestaurantDetails = () => {
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
-    axios.get(PATH  + "/restaurantprofile/details")
+    axios.get(PATH  + "/restaurant/details")
     .then(res => {
         if(res.status === 200){  
                 this.props.saveRestaurantDetails(res.data);  
@@ -54,17 +50,17 @@ saveRestaurantDetails = (event) => {
     event.preventDefault();
     const data = {
         //"id": this.props.basicDetails.id,
-        "email_id": event.target.elements[2].value,            
-        "restaurant_name": event.target.elements[0].value,
-        "restaurant_location": event.target.elements[1].value,
-        "restaurant_city": event.target.elements[4].value,
-        "restaurant_state": event.target.elements[5].value,
-        "restaurant_country": event.target.elements[6].value,  
-        "restaurant_zip": event.target.elements[7].value, 
-        "restaurant_description": event.target.elements[8].value,
+        "email": event.target.elements[2].value,            
+        "name": event.target.elements[0].value,
+        "location": event.target.elements[1].value,
+        "city": event.target.elements[4].value,
+        "state": event.target.elements[5].value,
+        "country": event.target.elements[6].value,  
+        "zip": event.target.elements[7].value, 
+        "description": event.target.elements[8].value,
         "contact_info": event.target.elements[3].value,
         "timing": event.target.elements[9].value,
-        "cousine": event.target.elements[10].value,
+        "cuisine": event.target.elements[10].value,
         "delivery_method": event.target.elements[11].value,      
     }
     //console.log(data)
@@ -164,7 +160,7 @@ saveRestaurantImages = (event) => {
 getMenuDetails = () => {
     //console.log("get of menu")
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
-    axios.get(PATH  + "/restaurantprofile/menudetails")
+    axios.get(PATH  + "/restaurant/menu/all")
     .then(res => {
         if(res.status === 200){  
            // console.log("got the menu")
@@ -191,12 +187,13 @@ saveMenuDetails = (event) => {
         //"id": this.props.basicDetails.id,
         "name": event.target.elements[0].value,            
         "description": event.target.elements[1].value,
-        "ingredients": event.target.elements[2].value,
+        "ingredient": event.target.elements[2].value,
         "category": event.target.elements[3].value,
         "price": event.target.elements[4].value,     
     }
+    console.log(data)
     //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);
-    axios.post(PATH + "/restaurantprofile/menudetails", data)
+    axios.post(PATH + "/menu/add", data)
     .then(res => {
         if(res.status === 200){
             localStorage.setItem('id', res.data.id);           

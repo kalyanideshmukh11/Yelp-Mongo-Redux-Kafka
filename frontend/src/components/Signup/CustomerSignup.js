@@ -11,13 +11,13 @@ class CustomerSignup extends Component {
         let data = {
             first_name: this.props.first_name,
             last_name: this.props.last_name,
-            email_id: this.props.email_id,
+            email: this.props.email,
             password: this.props.password,
-            entity: "customer"
+            user: "customer"
         };
         axios.defaults.withCredentials = true;
-        console.log((PATH + "/customer/customersignup", data))
-        axios.post(PATH + "/customer/customersignup", data).then(res => {
+        console.log((PATH + "/customer/signup", data))
+        axios.post(PATH + "/customer/signup", data).then(res => {
             if(res.status === 200){
                 localStorage.setItem('first_name', this.props.first_name);
                 this.props.history.push('/login');
@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
     return {
         first_name: state.signup.first_name,
         last_name: state.signup.last_name,
-        email_id: state.signup.email_id,
+        email: state.signup.email,
         password: state.signup.password,
         error: state.signup.error
     };
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addSignupEmail: (email_id) => dispatch(addSignupEmail(email_id)),
+        addSignupEmail: (email) => dispatch(addSignupEmail(email)),
         addSignupPassword: (password) => dispatch(addSignupPassword(password)),
         addFirstName: (first_name) => dispatch(addFirstName(first_name)),
         addLastName: (last_name) => dispatch(addLastName(last_name)),

@@ -1,17 +1,40 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
+var Schema = mongoose.Schema;
 
-const eventSchema = new Schema({
-    event_id:{type: Number,primaryKey: true,unique: true,allowNull: false,autoIncrement: true},
-    name: {type: String,primaryKey: true},
-    description: { type: String },
-    date: { type: Date},
-    time: { type : String },
-    location: { type: String, required: true,},
-    rest_id: { type: Number, references: {   model: 'Restaurant',   key: '_id', }, }
-}, {
-    
-    timestamps: false
+const EventSchema = new Schema({
+    restaurant: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'restaurant'
+    },
+    name: {
+        type: String,
+    },
+    description: {
+        type: String,
+    },
+    date: {
+        type: Date,
+    },
+    time: {
+        type: String,
+    },
+    location: {
+        type: String,
+    },
+    registration: [
+        {
+            status: {
+                type: String,
+            },
+            customer: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'customer'
+            }            
+        }
+    ]
 });
 
-module.exports = Event = mongoose.model('event', eventSchema);
+EventSchema.plugin(mongoosePaginate);
+
+module.exports = Events = mongoose.model('event', EventSchema, 'event');

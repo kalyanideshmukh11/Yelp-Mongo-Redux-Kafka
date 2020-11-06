@@ -36,6 +36,7 @@ const rootReducer = combineReducers({
   orderSearch: orderReducer,
   restPage: restPageReducer,
   order: placeOrderReducer,
+ // msg: msgReducer,
   custPage: custPageReducer,
 })
 

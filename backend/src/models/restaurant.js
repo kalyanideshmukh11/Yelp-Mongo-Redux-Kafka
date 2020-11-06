@@ -1,25 +1,75 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 
-const restaurantSchema = new Schema({
-        id:{type: Number,primaryKey: true,unique: true,allowNull: false},
-        email_id: { type: String, unique: true },
-        password: {type: String, allowNull: false},
-        restaurant_name: { type: String },
-        restaurant_location: { type: String },
-        restaurant_city:{ type: String},
-        restaurant_state: { type: String },
-        restaurant_country: { type: String },
-        restaurant_zip:{type: Number},
-        restaurant_description: { type: String },
-        contact_info: { type: String },
-        timing: { type: String },
-        cousine:{type: String },
-        delivery_method:{type: String },
-    }, {
-       
-        timestamps: false
-    });
+const RestaurantSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },  
+  password: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type:String,
+    required:true,
+  },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  zip:{
+    type:String,
+  },
+  description:{
+    type: String,
+  },
+  timing:{
+    type: String,
+  },
+  cuisine:{
+    type: String,
+  },
+  delivery_method:{
+    type: String,
+  },
+  profile_picture: {
+    type: String,
+  },
+  contact_info: {
+    type: String,
+  },
+  review: [
+    {
+        comment: {
+            type: String,
+        },
+        rating:{
+          type:String,
+        },
+        review_date: {
+            type: Date,
+        },
+        customer: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'customer'
+        }
+    }
+],
+  user: {
+    type: String,
+    default: 'restaurant'
+  },
+});
 
-
-module.exports = Restaurant = mongoose.model('restaurant', restaurantSchema);
+module.exports = Restaurant = mongoose.model('restaurant', RestaurantSchema, 'restaurant');

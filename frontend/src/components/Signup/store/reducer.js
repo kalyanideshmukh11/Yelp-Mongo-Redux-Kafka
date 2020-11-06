@@ -3,19 +3,19 @@ import * as actionTypes from '../../../constants/action-types';
 const initialState = {
     first_name: "",
     last_name: "",
-    restaurant_name:"",
-    restaurant_location:"",
-    email_id: "",
+    name:"",
+    location:"",
+    email: "",
     password: "",
     error: null
 }
 
 const signupReducer = (state = initialState, action) => {
     switch(action.type){
-        case actionTypes.ADD_EMAIL:
+        case actionTypes.ADD_SIGNUP_EMAIL:
             return {
                  ...state,
-                 email_id: action.payload,
+                 email: action.payload,
             }
         case actionTypes.ADD_PASSWORD:
             return {
@@ -35,12 +35,17 @@ const signupReducer = (state = initialState, action) => {
         case actionTypes.ADD_RESTAURANT_NAME:
             return {
                      ...state,
-                    restaurant_name: action.payload,
+                    name: action.payload,
             }
+        case actionTypes.ADD_RESTAURANT_EMAIL:
+                return {
+                         ...state,
+                        email: action.payload,
+                }
         case actionTypes.ADD_LOCATION_NAME:
             return {
                         ...state,
-                        restaurant_location: action.payload,
+                        location: action.payload,
             }
         case actionTypes.SET_SIGNUP_ERROR:
             return {

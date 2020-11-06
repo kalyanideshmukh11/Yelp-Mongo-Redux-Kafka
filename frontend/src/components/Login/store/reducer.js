@@ -1,7 +1,7 @@
 import * as actionTypes from '../../../constants/action-types';
 
 const initialState = {
-    email_id: null,
+    email: null,
     password: null,
     token: null,
     error: null
@@ -12,7 +12,7 @@ const loginReducer = (state = initialState, action) => {
         case actionTypes.ADD_EMAIL:
             return {
                 ...state,
-                email_id: action.payload,
+                email: action.payload,
                 error: null
             }
         case actionTypes.ADD_PASSWORD:

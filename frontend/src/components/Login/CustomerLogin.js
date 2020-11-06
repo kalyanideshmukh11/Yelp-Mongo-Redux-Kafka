@@ -10,20 +10,21 @@ class CustomerLogin extends Component {
     submitHandler = async (event) => {
         event.preventDefault();
         const data = {
-            email_id: this.props.email_id,
+            email: this.props.email,
             password: this.props.password
         }
         axios.defaults.withCredentials = true;
 
-        axios.post(PATH + "/customer/customerlogin", data)
+        axios.post(PATH + "/customer/login", data)
         .then(res => {
             if(res.status === 200){
-                this.props.authSuccess(res.data.token);
+                this.props.authSuccess(res.data.customer.responseMessage.token);
+                localStorage.setItem("user", res.data.customer.responseMessage.user);
                 this.props.history.push('/dashboard');
             }
         })
         .catch(err=>{
-            this.props.authFail(err.response.data.msg);
+            this.props.authFail(err.data.msg);
         })
     }
 
@@ -61,7 +62,7 @@ class CustomerLogin extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        email_id: state.login.email_id,
+        email: state.login.email,
         password: state.login.password,
         error: state.login.error
     };
@@ -69,7 +70,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addEmail: (email_id) => dispatch(addEmail(email_id)),
+        addEmail: (email) => dispatch(addEmail(email)),
         addPassword: (password) => dispatch(addPassword(password)),
         authSuccess: (token) => dispatch(authSuccess(token)),
         authFail: (error) => dispatch(authFail(error))

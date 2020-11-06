@@ -1,23 +1,48 @@
-const jwt = require('jsonwebtoken');
-const constants = require('../db/constants');
+const passport = require('passport');
+const passportJWT = require('passport-jwt');
 
-module.exports = function(req, res, next) {
-    const token = req.header('x-auth-token');
-    if (!token) {
-        console.log(token)
-        return res.status(402).json({ msg: 'No token, authorization denied' });
-    }
-    try {
-        console.log("Token:",token)
-        console.log("JWT_KEY:", constants.JWT_KEY)
-        const decoded = jwt.verify(token, constants.JWT_KEY, {
-            algorithms: ['HS256']
+const ExtractJWT = passportJWT.ExtractJwt;
+
+const JwtStrategy = passportJWT.Strategy;
+const config = require('../../config');
+const Customer = require('../models/customer');
+const Restaurant = require('../models/restaurant');
+
+function auth() {
+  const opts = {
+    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('jwt'),
+    secretOrKey: config.JWTPASSWORD,
+  };
+
+  passport.use(
+    new JwtStrategy(opts, (jwt_payload, callback) => {
+    const { email, user } = jwt_payload.user;
+      if (user === 'customer') {
+        Customer.findOne({email}, (err, results) => {
+          if (err) {
+            return callback(err, false);
+          }
+          if (results) {
+            callback(null, results);
+          } else {
+            callback(null, false);
+          }
         });
-        console.log("Decoded:",decoded)
-        req.user = decoded.user;
-        next();
+      } else if (user === 'restaurant') {
+        Restaurant.findOne({email}, (err, results) => {
+          if (err) {
+            return callback(err, false);
+          }
+          if (results) {
+            callback(null, results);
+          } else {
+            callback(null, false);
+          }
+        });
+      }
+    }),
+  );
+}
 
-    } catch (err) {
-        res.status(401).json({ msg: 'Token is not valid' });
-    }
-};
+exports.auth = auth;
+exports.checkAuth = passport.authenticate('jwt', { session: false });

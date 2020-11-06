@@ -9,22 +9,22 @@ class RestaurantSignup extends Component {
     submitHandler = async (event) => {
         event.preventDefault();
         let data = {
-            restaurant_name: this.props.restaurant_name,
-            restaurant_location: this.props.restaurant_location,
-            email_id: this.props.email_id,
+            name: this.props.name,
+            location: this.props.location,
+            email: this.props.email,
             password: this.props.password,
-            entity: "restaurant"
+            user: "restaurant"
         };
         axios.defaults.withCredentials = true;
         console.log((PATH + "/restaurant/signup", data))
         axios.post(PATH + "/restaurant/signup", data).then(res => {
             if(res.status === 200){
-                localStorage.setItem('restaurant_name', this.props.restaurant_name);
+                localStorage.setItem('name', this.props.name);
                 this.props.history.push('/login');
             }
         })
         .catch(err=>{
-            this.props.setSignupError(err.response.data.msg);
+            this.props.setSignupError(err.res.data);
         })
     }
 
@@ -83,9 +83,9 @@ class RestaurantSignup extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        restaurant_name: state.signup.restaurant_name,
-        restaurant_location: state.signup.restaurant_location,
-        email_id: state.signup.email_id,
+        name: state.signup.name,
+        location: state.signup.location,
+        email: state.signup.email,
         password: state.signup.password,
         error: state.signup.error
     };
@@ -93,10 +93,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addSignupEmail: (email_id) => dispatch(addSignupEmail(email_id)),
+        addSignupEmail: (email) => dispatch(addSignupEmail(email)),
         addSignupPassword: (password) => dispatch(addSignupPassword(password)),
-        addRestaurantName: (restaurant_name) => dispatch(addRestaurantName(restaurant_name)),
-        addLocationName: (restaurant_location) => dispatch(addLocationName(restaurant_location)),
+        addRestaurantName: (name) => dispatch(addRestaurantName(name)),
+        addLocationName: (location) => dispatch(addLocationName(location)),
         setSignupError: (error) => dispatch(setSignupError(error))
     }
 }
