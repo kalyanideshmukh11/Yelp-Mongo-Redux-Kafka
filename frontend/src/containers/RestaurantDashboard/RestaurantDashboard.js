@@ -160,7 +160,7 @@ saveRestaurantImages = (event) => {
 getMenuDetails = () => {
     //console.log("get of menu")
     axios.defaults.headers.common['x-auth-token'] = localStorage.getItem('token');
-    axios.get(PATH  + "/restaurant/menu/all")
+    axios.get(PATH  + "/menu/all")
     .then(res => {
         if(res.status === 200){  
            // console.log("got the menu")
@@ -189,7 +189,8 @@ saveMenuDetails = (event) => {
         "description": event.target.elements[1].value,
         "ingredient": event.target.elements[2].value,
         "category": event.target.elements[3].value,
-        "price": event.target.elements[4].value,     
+        "price": event.target.elements[4].value, 
+        "user": "restaurant" ,   
     }
     console.log(data)
     //Object.keys(data).forEach((key) => (data[key] == null) && delete data[key]);

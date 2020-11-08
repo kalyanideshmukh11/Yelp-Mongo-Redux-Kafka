@@ -24,6 +24,9 @@ handle_request =  async(msg, callback) => {
 				user: userRestaurant.user,
             },
         };
+        const token = jwt.sign(payload, secret, {
+            expiresIn: 1008000
+        });
         jwt.sign(
             payload,
             config.JWTPASSWORD,

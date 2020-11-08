@@ -22,7 +22,7 @@ const CustomerSchema = new Schema({
   dob: {
     type: Date,
   },
-  career_objective: {
+  yelping_since: {
     type: String,
   },
   city: {
@@ -34,13 +34,13 @@ const CustomerSchema = new Schema({
   country: {
     type: String,
   },
-  skills: {
+  findme_in: {
     type: [String],
   },
   profile_picture: {
     type: String,
   },
-  resume: {
+  things_love: {
     type: String,
   },
   phone_number: {
@@ -48,69 +48,14 @@ const CustomerSchema = new Schema({
   },
   user: {
     type: String,
-    default: 'student'
+    default: 'customer'
   },
-  experience: [
-    {
-      title: {
-        type: String,
-        required: true,
-      },
-      company: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-      },
-      state: {
-        type: String,
-      },
-      country: {
-        type: String,
-      },
-      start_date: {
-        type: Date,
-      },
-      end_date: {
-        type: Date,
-      },
-      description: {
-        type: String,
-      },
-    },
-  ],
-  education: [
-    {
-      college_name: {
-        type: String,
-        required: true,
-      },
-      degree: {
-        type: String,
-        required: true,
-      },
-      cgpa: {
-        type: Number,
-      },
-      major: {
-        type: String,
-        required: true,
-      },
-      year_of_passing: {
-        type: Number,
-      },
-      city: {
-        type: String,
-      },
-      state: {
-        type: String,
-      },
-      country: {
-        type: String,
-      },
-    },
-  ],
+  links: {
+    type: String
+  },
+  headline: {
+    type: String
+  },
   message_list: [
     {
       entity: {

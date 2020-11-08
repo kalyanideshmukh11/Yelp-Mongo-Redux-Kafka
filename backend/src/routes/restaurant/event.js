@@ -44,7 +44,7 @@ router.get('/all', checkAuth, async (req, res) => {
 });
 
 router.get('/customers', checkAuth, async (req, res) => {
-    kafka.make_request('company_event_customers', req.query, (err, results) => {
+    kafka.make_request('restaurant_event_customers', req.query, (err, results) => {
         if (err) {
             console.log('Inside err');
             res.json({

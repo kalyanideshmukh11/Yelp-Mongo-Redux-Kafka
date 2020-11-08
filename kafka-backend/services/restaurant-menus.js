@@ -6,7 +6,7 @@ handle_request =  async(msg, callback) => {
         limit: 5,
     }
     try {
-        const menus = await Menu.paginate({company: msg.user._id}, options, (err, result) => {
+        const menus = await Menu.paginate({restaurant: msg.user._id}, options, (err, result) => {
             return result.docs;
         })
         if (menus) {

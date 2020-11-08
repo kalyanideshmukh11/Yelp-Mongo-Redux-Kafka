@@ -7,7 +7,7 @@ handle_request =  async(msg, callback) => {
     try {
         const customerEntry = {
             status: "Pending",
-            applied_date: Date.now(),
+            order_date: Date.now(),
             customer,
             resume
         }

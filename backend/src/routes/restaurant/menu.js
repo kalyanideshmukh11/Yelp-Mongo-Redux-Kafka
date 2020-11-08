@@ -4,8 +4,9 @@ const router = express.Router();
 const { checkAuth } = require('../../middleware/auth');
 const kafka = require('../../../kafka/client');
 
-router.post('/add',  async (req, res) => {
+router.post('/add', checkAuth, async (req, res) => {
     req.body.user = req.user;
+    console.log(req.user)
     kafka.make_request('restaurant_menu', req.body, (err, results) => {        
         if (err) {
             console.log('Inside err');
@@ -23,7 +24,27 @@ router.post('/add',  async (req, res) => {
     });
 });
 
+
 router.get('/all', checkAuth, async (req, res) => {
+    let payload = {query: req.query, user: req.user};
+    kafka.make_request('restaurant_menus', payload, (err, results) => {
+        if (err) {
+            console.log('Inside err');
+            res.json({
+                status: 'error',
+                msg: 'System Error, Try Again.',
+            });
+        } else {
+            console.log('Inside else');
+            res.json({
+                menus: results,
+            });
+            res.end();
+        }
+    });
+});
+
+router.get('/allevents', checkAuth, async (req, res) => {
     let payload = {query: req.query, user: req.user};
     kafka.make_request('restaurant_events', payload, (err, results) => {
         if (err) {

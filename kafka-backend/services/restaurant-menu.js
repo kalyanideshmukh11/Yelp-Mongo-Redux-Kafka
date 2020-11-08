@@ -2,7 +2,7 @@ var Menu = require('../models/menu');
 
 handle_request =  async(msg, callback) => {
     try {
-        console.log("menu entry...")
+        console.log("menu entry...", msg)
         const menu = msg;
         const menuEntry = new Menu({
             ...menu,

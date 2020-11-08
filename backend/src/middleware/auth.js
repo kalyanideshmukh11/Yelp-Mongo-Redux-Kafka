@@ -8,6 +8,7 @@ const config = require('../../config');
 const Customer = require('../models/customer');
 const Restaurant = require('../models/restaurant');
 
+
 function auth() {
   const opts = {
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('jwt'),
@@ -17,6 +18,7 @@ function auth() {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, callback) => {
     const { email, user } = jwt_payload.user;
+    console.log("INSIDE AUTH")
       if (user === 'customer') {
         Customer.findOne({email}, (err, results) => {
           if (err) {
@@ -29,6 +31,7 @@ function auth() {
           }
         });
       } else if (user === 'restaurant') {
+        console.log("CHECKING REST")
         Restaurant.findOne({email}, (err, results) => {
           if (err) {
             return callback(err, false);

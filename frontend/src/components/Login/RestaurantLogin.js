@@ -21,8 +21,8 @@ class RestaurantLogin extends Component {
         axios.post(PATH + "/restaurant/login", data)
         .then(res => {
             if(res.status === 200){
-                this.props.authSuccess(res.data.restaurant.responseMessage.token);
-               // localStorage.setItem("user", res.data.restaurant.responseMessage.user);
+               this.props.authSuccess(res.data.restaurant.responseMessage.token);
+               localStorage.setItem("user", res.data.restaurant.responseMessage.user);
                 this.props.history.push('/restaurantdashboard');
             }
         })
