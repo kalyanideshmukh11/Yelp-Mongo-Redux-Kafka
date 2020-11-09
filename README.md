@@ -1,8 +1,5 @@
 # Yelp-Mongo-Redux-Kafka
 
-##Backend
+Frontend - Run npm install within the folder to download the required packages. Thereafter, run npm start to bring the UI up.
 
-
-##Kafka Backend
-
-##FrontEnd
+Backend - Run npm install within the folder to download the required pacakges. Thereafter, run node app.js to bring the backend up.
